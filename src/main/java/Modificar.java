@@ -12,6 +12,8 @@ public class Modificar {
         ObjectMapper mapper = new ObjectMapper();
 
         /*asignamos la info a la instancia de DatosPersonales*/
+        /*IMPORTANTE: en la lectura necesitamos usar DatosPersonales.class en vez de una instancia para que
+        * Jackson (la libreria) sepa la estructura en la que tiene que leer las cosas del archivo.*/
         DatosPersonales persona = mapper.readValue(archivoJSON,DatosPersonales.class);
 
         /*como lenguajes en una lista, le añadimos c, y direccion es otra clase con atributos, usamos un setter*/
@@ -20,6 +22,8 @@ public class Modificar {
 
         System.out.println(persona);
         /*volvemos a escribir el archivo con la nueva info de forma bonita*/
+        /*IMPORTANTE: al escribir usamos persona en vez de datosPersonales.class, ya que la libreria
+        * ya sabe cual es la estructura de la clase (la tiene en el objeto) y la puede guardar directamente asi*/
         mapper.writerWithDefaultPrettyPrinter().writeValue(archivoJSON,persona);
     }
 }
